@@ -89,6 +89,7 @@ class SymLink extends Model
 		Photo::VARIANT_MEDIUM => 'medium',
 		Photo::VARIANT_MEDIUM2X => 'medium2x',
 		Photo::VARIANT_ORIGINAL => 'url',
+		Photo::VARIANT_ORIGINAL => 'full_url',
 	];
 
 	/**
@@ -162,6 +163,25 @@ class SymLink extends Model
 					$return['url'] = Storage::drive('symbolic')->url($this->$field);
 				} else {
 					$return['sizeVariants'][$variant]['url'] = Storage::drive('symbolic')->url($this->$field);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Given the return array of a photo, override the link provided.
+	 *
+	 * @param array $return The serialization of a photo as returned by Photo#toReturnArray()
+	 */
+	public function overrideFullUrl(array &$return)
+	{
+		foreach (self::VARIANT_2_SYM_PATH_FIELD as $variant => $field) {
+			if ($this->$field != '') {
+				// TODO: This could be avoided, if the original variant was also serialized into the sub-array 'sizeVariants', see comment in PhotoCast#toReturnArray
+				if ($variant == Photo::VARIANT_ORIGINAL) {
+					$return['full_url'] =  Storage::drive('symbolic')->url($this->$field);
+				} else {
+					$return['sizeVariants'][$variant]['full_url'] = Storage::drive('symbolic')->url($this->$field);
 				}
 			}
 		}

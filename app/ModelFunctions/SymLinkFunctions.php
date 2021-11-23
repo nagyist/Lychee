@@ -32,12 +32,10 @@ class SymLinkFunctions
 			// @codeCoverageIgnoreEnd
 		}
 
-		$sym = null;
-
 		$sym = SymLink::where('photo_id', $photo->id)
 			->orderBy('created_at', 'DESC')
 			->first();
-		if ($sym == null) {
+		if ($sym === null) {
 			$sym = new SymLink();
 			$sym->set($photo);
 			$sym->save();
@@ -62,10 +60,32 @@ class SymLinkFunctions
 		array &$return
 	) {
 		$sym = $this->find($photo);
-		if ($sym != null) {
+		if ($sym !== null) {
 			$sym->override($return);
 		}
 	}
+
+	/**
+	 * Get URLS of pictures.
+	 *
+	 * This method modifies the serialization of a photo such that the original URLs are replaced by symlinks.
+	 * *Attention:* The passed $photo and the passed array $return which represents the serialization of the photo must
+	 * match.
+	 * It is the caller's responsibility to ensure that $return equals $photo->toReturnArray().
+	 *
+	 * @param Photo $photo  The photo that is going to be serialized
+	 * @param array $return The serialization of the passed photo as returned by Photo#toReturnArray()
+	 */
+	public function getFullUrl(
+		Photo $photo,
+		array &$return
+	) {
+		$sym = $this->find($photo);
+		if ($sym !== null) {
+			$sym->overrideFullUrl($return);
+		}
+	}
+
 
 	/**
 	 * Clear the table of existing SymLinks.

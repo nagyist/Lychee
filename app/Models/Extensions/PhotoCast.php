@@ -16,6 +16,8 @@ trait PhotoCast
 	 */
 	public function toReturnArray(): array
 	{
+		$app_url = env('APP_URL','http://localhost') ;
+
 		if ($this->isVideo()) {
 			$filename = $this->thumbUrl;
 		} elseif ($this->type == 'raw') {
@@ -58,7 +60,10 @@ trait PhotoCast
 			'star' => Helpers::str_of_bool($this->star),
 			'public' => $this->get_public(),
 			'album' => $this->album_id !== null ? strval($this->album_id) : null,
-			'url' => ($this->type == 'raw') ? Storage::url('raw/' . $this->url) : Storage::url('big/' . $this->url),
+			'url' => ($this->type === 'raw') ? Storage::url('raw/' . $this->url) : Storage::url('big/' . $this->url),
+			'full_url' => "". ($this->type === 'raw')
+				? $app_url . '/' . Storage::url('raw/' . $this->url)
+				: $app_url . '/' . Storage::url('big/' . $this->url) . "",
 			'width' => $this->width !== null ? $this->width : 0,
 			'height' => $this->height !== null ? $this->height : 0,
 			'type' => $this->type,
@@ -100,6 +105,8 @@ trait PhotoCast
 	 */
 	protected function serializeSizeVariant(string $sizeVariant, ?string $fileName, ?int $width, ?int $height): ?array
 	{
+		$app_url = env('APP_URL','http://localhost') ;
+
 		if ($width === null || $height === null || $fileName === null || $fileName === '') {
 			return null;
 		} else {
@@ -107,6 +114,7 @@ trait PhotoCast
 				'url' => Storage::url(Photo::VARIANT_2_PATH_PREFIX[$sizeVariant] . '/' . $fileName),
 				'width' => $width,
 				'height' => $height,
+				'full_url' => $app_url . '/' . Storage::url(Photo::VARIANT_2_PATH_PREFIX[$sizeVariant] . '/' . $fileName),
 			];
 		}
 	}

@@ -1,7 +1,7 @@
 {
     "name": "lycheeorg/lychee-laravel",
     "description": "A great looking and easy-to-use photo-management-system you can run on your server, to manage and share photos.",
-    "homepage": "https://lycheeorg.github.io/",
+    "homepage": "https://github.com/nagyist/lychee",
     "keywords": [
         "framework",
         "laravel"

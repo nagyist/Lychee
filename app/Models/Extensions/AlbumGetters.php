@@ -39,7 +39,7 @@ trait AlbumGetters
 	 */
 	public function get_license(): string
 	{
-		if ($this->license == 'none') {
+		if ($this->license === 'none') {
 			return Configs::get_value('default_license');
 		}
 
@@ -75,7 +75,7 @@ trait AlbumGetters
 
 	public function get_thumb(): ?Thumb
 	{
-		if ($this->cover != null) {
+		if ($this->cover !== null) {
 			$cover = $this->cover;
 		} else {
 			[$sort_col, $sort_order] = $this->get_sort();
@@ -90,7 +90,7 @@ trait AlbumGetters
 			//? apply safety filter : Do not leak pictures which are not ours
 			$forbiddenID = resolve(PublicIds::class)->getNotAccessible();
 
-			if ($forbiddenID != null && !$forbiddenID->isEmpty()) {
+			if ($forbiddenID !== null && !$forbiddenID->isEmpty()) {
 				$sql = $sql->where(
 					fn ($q) => $q->whereNull('album_id')
 						->orWhereNotIn('album_id', $forbiddenID)

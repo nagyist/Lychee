@@ -21,8 +21,8 @@ trait ImageEditing
 	{
 		if ($frame_tmp === '' || $photo->type == 'raw') {
 			// Create medium file for normal photos and for raws
-			$mediumMaxWidth = intval(Configs::get_value('medium_max_width'));
-			$mediumMaxHeight = intval(Configs::get_value('medium_max_height'));
+			$mediumMaxWidth = (int)Configs::get_value('medium_max_width');
+			$mediumMaxHeight = (int)Configs::get_value('medium_max_height');
 			$this->resizePhoto($photo, 'medium', $mediumMaxWidth, $mediumMaxHeight, $frame_tmp);
 
 			if (Configs::get_value('medium_2x') === '1') {
@@ -30,8 +30,8 @@ trait ImageEditing
 			}
 		}
 
-		$smallMaxWidth = intval(Configs::get_value('small_max_width'));
-		$smallMaxHeight = intval(Configs::get_value('small_max_height'));
+		$smallMaxWidth = (int)Configs::get_value('small_max_width');
+		$smallMaxHeight = (int)Configs::get_value('small_max_height');
 		$this->resizePhoto($photo, 'small', $smallMaxWidth, $smallMaxHeight, $frame_tmp);
 
 		if (Configs::get_value('small_2x') === '1') {

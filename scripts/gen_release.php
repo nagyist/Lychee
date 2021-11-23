@@ -35,7 +35,7 @@ class BumpVersion%s extends Migration
 
 /**
  * We get the current version number
- * 
+ *
  * @return array
  */
 function get_version()
@@ -45,7 +45,7 @@ function get_version()
         throw new Exception("unable to find current version number in version.md\n");
     }
     $arr_CurrentVersion = array_map('intval', explode('.', $str_CurrentVersion));
-    if (count($arr_CurrentVersion) != 3) {
+    if (count($arr_CurrentVersion) !== 3) {
         throw new Exception("invalid version number");
     }
 
@@ -54,10 +54,10 @@ function get_version()
 
 /**
  * Given the current version and the update array return the new version number
- * 
+ *
  * @param array $curr_version : current version number
  * @param string $kind : 'minor' or 'major'
- * 
+ *
  * @return array
  */
 function new_version(array $curr_version, string $kind)
@@ -85,7 +85,7 @@ function new_version(array $curr_version, string $kind)
 
 /**
  * encode $version into a string of 6 digits
- * 
+ *
  * @return string
  */
 function str_version(array $version)

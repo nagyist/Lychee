@@ -1,0 +1,65 @@
+#-------------------------------------------
+#  Docker Compose
+# @RobLandry
+# Repo : https://github.com/LycheeOrg/Lychee-Laravel-Docker
+#-------------------------------------------
+
+version: '3'
+
+services:
+    #lychee_db:
+    #    container_name: lychee_db
+    #    image: mariadb:10
+    #    environment:
+    #        - MYSQL_ROOT_PASSWORD=<ROOT_PASSWORD>
+    #        - MYSQL_DATABASE=lychee
+    #        - MYSQL_USER=lychee
+    #        - MYSQL_PASSWORD=<LYCHEE_PASSWORD>
+    #    expose:
+    #        - 3306
+    #    volumes:
+    #        - mysql:/var/lib/mysql
+    #    networks:
+    #        - lychee
+    #    restart: unless-stopped
+
+    lychee:
+        image: nagyist/lychee
+        container_name: lychee
+        ports:
+            - 90:80
+        volumes:
+            - ./lychee/conf:/conf
+            - ./lychee/uploads:/uploads
+            - ./lychee/sym:/sym
+        networks:
+            - lychee
+        environment:
+            - PUID=1000
+            - PGID=1000
+            # PHP timezone e.g. PHP_TZ=America/New_York
+            - PHP_TZ=UTC
+            - APP_NAME=Lychee
+            #- APP_ENV=local
+            #- APP_DEBUG=true
+            - APP_URL=http://lychee.local
+            #- LOG_CHANNEL=stack
+            - DB_CONNECTION=sqlite
+            #- DB_DROP_CLEAR_TABLES_ON_ROLLBACK=false
+            #- DB_OLD_LYCHEE_PREFIX=''
+            #- BROADCAST_DRIVER=log
+            #- CACHE_DRIVER=file
+            #- SESSION_DRIVER=file
+            #- SESSION_LIFETIME=120
+            #- QUEUE_DRIVER=sync
+            #- SECURITY_HEADER_HSTS_ENABLE=false
+            - STARTUP_DELAY=30
+        restart: unless-stopped
+        #depends_on:
+        #    - lychee_db
+
+networks:
+    lychee:
+
+#volumes:
+#    mysql:

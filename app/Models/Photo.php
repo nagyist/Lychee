@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Storage;
  * @property string      $title
  * @property string|null $description
  * @property string      $url
+ * @property string      $full_url
  * @property string      $tags
  * @property int         $public
  * @property int         $owner_id
@@ -247,7 +248,7 @@ class Photo extends Model
 			}
 		}
 
-		if ($this->thumbUrl != '') {
+		if ($this->thumbUrl !== '') {
 			// Get retina thumb url
 			$thumbUrl2x = Helpers::ex2x($this->thumbUrl);
 			// Delete thumb

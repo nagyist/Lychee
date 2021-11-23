@@ -83,6 +83,7 @@ class AlbumController extends Controller
 	{
 		$validated = $request->validated();
 		$album = $albumFactory->make($validated['albumID']);
+		Logs::error(__METHOD__, __LINE__, 'License not recognised: ' . $album);
 
 		return $prepare->do($album);
 	}

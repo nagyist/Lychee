@@ -53,7 +53,7 @@ trait PhotoGetters
 	 */
 	public function get_public(): string
 	{
-		return $this->public == 1 ? '1' : '0';
+		return $this->public === 1 ? '1' : '0';
 	}
 
 	/**
@@ -65,11 +65,11 @@ trait PhotoGetters
 	 */
 	public function get_license(string $license = 'none'): string
 	{
-		if ($this->license != 'none') {
+		if ($this->license !== 'none') {
 			return $this->license;
 		}
 
-		if ($license != 'none') {
+		if ($license !== 'none') {
 			return $license;
 		}
 
