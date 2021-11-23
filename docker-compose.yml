@@ -1,7 +1,6 @@
 #-------------------------------------------
 #  Docker Compose
-# @RobLandry
-# Repo : https://github.com/LycheeOrg/Lychee-Laravel-Docker
+#  based on: https://github.com/LycheeOrg/Lychee-Laravel-Docker
 #-------------------------------------------
 
 version: '3'
@@ -24,7 +23,7 @@ services:
     #    restart: unless-stopped
 
     lychee:
-        image: nagyist/lychee
+        image: nagyistge/lychee
         container_name: lychee
         ports:
             - 90:80

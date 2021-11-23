@@ -1,7 +1,7 @@
 FROM debian:bullseye-slim
 
 # Set version label
-LABEL maintainer="nagyist"
+LABEL maintainer="nagyistge"
 
 # Environment variables
 ENV PUID='1000'
